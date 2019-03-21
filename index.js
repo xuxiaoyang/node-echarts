@@ -1,8 +1,7 @@
 var echarts = require("echarts");
-var Canvas = require("canvas-prebuilt");
+var Canvas = require("canvas");
 var fs = require('fs');
 var path = require('path');
-
 
 /**
  * @param config = {
@@ -12,7 +11,6 @@ var path = require('path');
         //If the path  is not set, return the Buffer of image.
         path:  '', // Path is filepath of the image which will be created.
     }
-
  *
  */
 module.exports = function (config) {
@@ -20,7 +18,7 @@ module.exports = function (config) {
         Canvas = config.canvas;
     }
 
-    var ctx = new Canvas(128, 128);
+    var ctx = Canvas.createCanvas(128, 128);
     if (config.font) {
         ctx.font = config.font;
     }
@@ -58,7 +56,7 @@ module.exports = function (config) {
     config = Object.assign({}, defaultConfig, config)
 
     config.option.animation = false;
-    chart = echarts.init(new Canvas(parseInt(config.width, 10), parseInt(config.height, 10)));
+    chart = echarts.init(Canvas.createCanvas(parseInt(config.width, 10), parseInt(config.height, 10)));
     chart.setOption(config.option);
     if (config.path) {
         try {
